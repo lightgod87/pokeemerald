@@ -65,7 +65,6 @@
 // Converts a Q24.8 fixed-point format number to a regular integer
 #define Q_24_8_TO_INT(n) ((int)((n) >> 8))
 
-
 // Rounding value for Q4.12 fixed-point format
 #define Q_4_12_ROUND ((1) << (12 - 1))
 #define UQ_4_12_ROUND ((1) << (12 - 1))
@@ -303,7 +302,7 @@ struct BattleTowerEReaderTrainer
     /*0xB8*/ u32 checksum;
 };
 
-// For displaying party information on the player's Battle Dome tourney page 
+// For displaying party information on the player's Battle Dome tourney page
 struct DomeMonData
 {
     u16 moves[MAX_MON_MOVES];
