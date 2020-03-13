@@ -955,6 +955,76 @@ LittlerootTown_EventScript_GiveRunningShoes:: @ 81E8693
 	delay 30
 	return
 
+LittlerootTown_Debug::
+	msgbox LittlerootTown_Debug_Text_0
+	//givemon SPECIES_MEWTWO, 70, ITEM_MEWTWONITE_Y
+	call LittlerootTown_EventScript_GiveMewtwo
+	msgbox LittlerootTown_Debug_Text_1
+	warp MAP_RUSTBORO_CITY, 255, 27, 21
+	waitstate
+	release
+	end
+
+	LittlerootTown_EventScript_GiveMewtwo::
+		setvar VAR_TEMP_1, SPECIES_MEWTWO
+		givemon SPECIES_MEWTWO, 70, ITEM_MEWTWONITE_Y
+		compare VAR_RESULT, 0
+		goto_if_eq LittlerootTown_EventScript_SendMewtwoParty
+		compare VAR_RESULT, 1
+		goto_if_eq LittlerootTown_EventScript_SendMewtwoPC
+		goto Common_EventScript_NoMoreRoomForPokemon
+		return
+
+	LittlerootTown_EventScript_SendMewtwoParty::
+		call LittlerootTown_EventScript_ReceivedMewtwoFanfare
+		msgbox gText_NicknameThisPokemon, MSGBOX_YESNO
+		compare VAR_RESULT, NO
+		goto_if_eq LittlerootTown_EventScript_ReceivedMewtwo
+		call Common_EventScript_GetGiftMonPartySlot
+		call Common_EventScript_NameReceivedPartyMon
+		goto LittlerootTown_EventScript_ReceivedMewtwo
+		return
+		end
+
+	LittlerootTown_EventScript_SendMewtwoPC::
+		call LittlerootTown_EventScript_ReceivedMewtwoFanfare
+		msgbox gText_NicknameThisPokemon, MSGBOX_YESNO
+		compare VAR_RESULT, NO
+		goto_if_eq LittlerootTown_EventScript_MewtwoTransferredToPC
+		call Common_EventScript_NameReceivedBoxMon
+		goto LittlerootTown_EventScript_MewtwoTransferredToPC
+		end
+
+	LittlerootTown_EventScript_MewtwoTransferredToPC::
+		call Common_EventScript_TransferredToPC
+		goto LittlerootTown_EventScript_ReceivedMewtwo
+		return
+		end
+
+	LittlerootTown_EventScript_ReceivedMewtwoFanfare::
+		bufferspeciesname 1, SPECIES_MEWTWO
+		removeobject 2
+		playfanfare MUS_FANFA4
+		message LittlerootTown_Text_ObtainedMewtwo
+		waitmessage
+		waitfanfare
+		bufferspeciesname 0, SPECIES_MEWTWO
+		return
+
+	LittlerootTown_EventScript_ReceivedMewtwo::
+		setflag FLAG_RECEIVED_MEWTWO_DEBUG
+		return
+		end
+
+		LittlerootTown_Text_ObtainedMewtwo: @ 8222BED
+			.string "{PLAYER} obtained a MEWTWO.$"
+
+LittlerootTown_Debug_Text_0:
+	.string "This is for you!$"
+
+LittlerootTown_Debug_Text_1:
+	.string "Also, please go here!$"
+
 LittlerootTown_Text_OurNewHomeLetsGoInside: @ 81E86BC
 	.string "MOM: {PLAYER}, we're here, honey!\p"
 	.string "It must be tiring riding with our things\n"
@@ -1064,4 +1134,3 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab: @ 81E8DA2
 	.string "I gave you?\p"
 	.string "I have something to show you.\n"
 	.string "Let's go to my LAB.$"
-

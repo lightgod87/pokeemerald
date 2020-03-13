@@ -239,6 +239,7 @@ Route120_EventScript_StevenGiveDeconScope:: @ 81F572C
 	msgbox Route120_Text_StevenGiveDevonScope, MSGBOX_DEFAULT
 	giveitem ITEM_DEVON_SCOPE
 	setflag FLAG_RECEIVED_DEVON_SCOPE
+	call Route120_ReceiveMegaStone
 	msgbox Route120_Text_StevenGoodbye, MSGBOX_DEFAULT
 	closemessage
 	applymovement 31, Common_Movement_WalkInPlaceFastestDown
@@ -382,6 +383,41 @@ Route120_EventScript_Callie:: @ 81F5981
 	trainerbattle_single TRAINER_CALLIE, Route120_Text_CallieIntro, Route120_Text_CallieDefeat
 	msgbox Route120_Text_CalliePostBattle, MSGBOX_AUTOCLOSE
 	end
+
+Route120_ReceiveMegaStone::
+	msgbox Route120_ReceiveMegaStone_Text_0
+	switch VAR_STARTER_MON
+	case 0, Route120_ReceiveMegaStone_3
+	case 1, Route120_ReceiveMegaStone_4
+	case 2, Route120_ReceiveMegaStone_5
+
+Route120_ReceiveMegaStone_1:
+	setflag FLAG_RECEIVED_MEGA_STONE
+	return
+
+Route120_ReceiveMegaStone_3:
+	giveitem ITEM_SCEPTILITE
+	goto Route120_ReceiveMegaStone_1
+
+Route120_ReceiveMegaStone_4:
+	giveitem ITEM_BLAZIKENITE
+	goto Route120_ReceiveMegaStone_1
+
+Route120_ReceiveMegaStone_5:
+	giveitem ITEM_SWAMPERTITE
+	goto Route120_ReceiveMegaStone_1
+
+Route120_EventScript_Fisherman:: @ 81F57BC
+	msgbox Route120_Text_Fisherman, MSGBOX_NPC
+	end
+
+Route120_Text_Fisherman: @ 81F5998
+	.string "Sorry, but you can't pass.\n"
+	.string "We're doing something here.\p"
+	.string "Come back later. Okay?$"
+
+Route120_ReceiveMegaStone_Text_0:
+	.string "You can also have this.$"
 
 Route120_Text_StevenGreeting: @ 81F5998
 	.string "STEVEN: Hm? {PLAYER}{KUN}, hi.\n"
