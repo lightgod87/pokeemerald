@@ -55,6 +55,7 @@ RustboroCity_DevonCorp_3F_EventScript_MeetPresident:: @ 821246E
 	waitfanfare
 	setflag FLAG_SYS_POKENAV_GET
 	setflag FLAG_RECEIVED_POKENAV
+	setflag FLAG_ENABLE_WILD_DOUBLE_BATTLES
 	setflag FLAG_HIDE_RUSTBORO_CITY_POKEMON_SCHOOL_SCOTT
 	msgbox RustboroCity_DevonCorp_3F_Text_MrStoneExplainPokenavRestUp, MSGBOX_DEFAULT
 	closemessage
@@ -251,11 +252,11 @@ RustboroCity_DevonCorp_3F_Text_ThankYouForDeliveringLetter: @ 8212A29
 	.string "It should help you, a TRAINER.$"
 
 RustboroCity_DevonCorp_3F_Text_ExplainExpShare: @ 8212A9E
-	.string "MR. STONE: A POKéMON holding that\n"
-	.string "EXP. SHARE will be given some of the\l"
-	.string "EXP Points from battle.\p"
-	.string "It will get EXP Points even if it didn't\n"
-	.string "actually battle.\p"
+	.string "MR. STONE: When you use the\n"
+	.string "EXP. SHARE, every POKéMON will be given\l"
+	.string "some of the EXP Points from battle.\p"
+	.string "They will get EXP Points even if they\n"
+	.string "didn't actually battle.\p"
 	.string "I would say EXP. SHARE is quite useful\n"
 	.string "for raising weak POKéMON.$"
 
@@ -305,4 +306,3 @@ RustboroCity_DevonCorp_3F_Text_RepeatAndTimerHugelyPopular: @ 8212E88
 RustboroCity_DevonCorp_3F_Text_RareRocksDisplay: @ 8212EE9
 	.string "It's a collection of rare rocks and\n"
 	.string "stones assembled by the PRESIDENT.$"
-

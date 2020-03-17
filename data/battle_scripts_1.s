@@ -12,7 +12,7 @@
 	.include "constants/constants.inc"
 
 	.section script_data, "aw", %progbits
-	
+
 .align 2
 gBattleScriptsForMoveEffects:: @ 82D86A8
 	.4byte BattleScript_EffectHit
@@ -446,7 +446,7 @@ BattleScript_EffectPartingShot::
 	jumpifstat BS_TARGET, CMP_GREATER_THAN, STAT_ATK, 0x0, BattleScript_EffectPartingShotTryAtk
 	jumpifstat BS_TARGET, CMP_EQUAL, STAT_SPATK, 0x0, BattleScript_CantLowerMultipleStats
 BattleScript_EffectPartingShotTryAtk:
-	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE	
+	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
 	attackanimation
 	waitanimation
 	setbyte sSTAT_ANIM_PLAYED, FALSE
@@ -462,7 +462,7 @@ BattleScript_EffectPartingShotTrySpAtk:
 	statbuffchange STAT_BUFF_ALLOW_PTR, BattleScript_EffectPartingShotSwitch
 	printfromtable gStatDownStringIds
 	waitmessage 0x40
-BattleScript_EffectPartingShotSwitch:	
+BattleScript_EffectPartingShotSwitch:
 	moveendall
 	jumpifcantswitch SWITCH_IGNORE_ESCAPE_PREVENTION | BS_ATTACKER, BattleScript_PartingShotEnd
 	openpartyscreen 0x1, BattleScript_PartingShotEnd
@@ -1774,7 +1774,7 @@ BattleScript_EffectGravity:
 	setgravity BattleScript_ButItFailed
 	attackanimation
 	waitanimation
-	printstring STRINGID_GRAVITYINTENSIFIED 
+	printstring STRINGID_GRAVITYINTENSIFIED
 	waitmessage 0x40
 	selectfirstvalidtarget
 BattleScript_GravityLoop:
@@ -1783,12 +1783,12 @@ BattleScript_GravityLoop:
 	goto BattleScript_GravityLoopEnd
 BattleScript_GravityLoopDrop:
 	bringdownairbornebattler BS_TARGET
-	printstring STRINGID_GRAVITYGROUNDING 
+	printstring STRINGID_GRAVITYGROUNDING
 	waitmessage 0x40
-BattleScript_GravityLoopEnd:	
+BattleScript_GravityLoopEnd:
 	moveendto MOVEEND_NEXT_TARGET
 	jumpifnexttargetvalid BattleScript_GravityLoop
-	end   
+	end
 
 BattleScript_EffectRoost:
 	attackcanceler
@@ -4859,11 +4859,19 @@ BattleScript_LocalBattleLost::
 	jumpifbattletype BATTLE_TYPE_EREADER_TRAINER, BattleScript_LocalBattleLostEnd
 	jumpifhalfword CMP_EQUAL, gTrainerBattleOpponent_A, 0x400, BattleScript_LocalBattleLostEnd
 BattleScript_LocalBattleLostPrintWhiteOut::
+	jumpifbattletype BATTLE_TYPE_TRAINER, BattleScript_LocalBattleLostEnd
 	printstring STRINGID_PLAYERWHITEOUT
 	waitmessage 0x40
+	getmoneyreward
 	printstring STRINGID_PLAYERWHITEOUT2
 	waitmessage 0x40
+	end2
 BattleScript_LocalBattleLostEnd::
+	printstring STRINGID_PLAYERLOSTAGAINSTENEMYTRAINER
+	waitmessage 0x40
+	getmoneyreward
+	printstring STRINGID_PLAYERPAIDPRIZEMONEY
+	waitmessage 0x40
 	end2
 BattleScript_CheckDomeDrew::
 	jumpifbyte CMP_EQUAL, gBattleOutcome, B_OUTCOME_DREW, BattleScript_LocalBattleLostEnd_
@@ -5906,7 +5914,7 @@ BattleScript_StanceChangeActivates::
 	handleformchange BS_ATTACKER, 1
 	playanimation BS_ATTACKER, B_ANIM_FORM_CHANGE, NULL
 	waitanimation
-	handleformchange BS_ATTACKER, 2 
+	handleformchange BS_ATTACKER, 2
 	return
 
 BattleScript_DisguiseBustedActivates::
@@ -5919,7 +5927,7 @@ BattleScript_DisguiseBustedActivates::
 	handleformchange BS_TARGET, 1
 	playanimation BS_TARGET, B_ANIM_FORM_CHANGE, NULL
 	waitanimation
-	handleformchange BS_TARGET, 2 
+	handleformchange BS_TARGET, 2
 	return
 
 BattleScript_IllusionOff::
@@ -6891,7 +6899,7 @@ BattleScript_82DB6C7::
 	printfromtable gInobedientStringIds
 	waitmessage 0x40
 	moveendto MOVEEND_NEXT_TARGET
-	end	
+	end
 BattleScript_TruantLoafingAround:
 	call BattleScript_AbilityPopUp
 	goto BattleScript_82DB6C7

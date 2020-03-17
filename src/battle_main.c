@@ -62,6 +62,7 @@
 #include "constants/species.h"
 #include "constants/trainers.h"
 #include "cable_club.h"
+#include "money.h"
 
 extern struct MusicPlayerInfo gMPlayInfo_SE1;
 extern struct MusicPlayerInfo gMPlayInfo_SE2;
@@ -244,6 +245,7 @@ EWRAM_DATA struct BattleHealthboxInfo *gUnknown_020244DC = NULL;
 EWRAM_DATA u16 gBattleMovePower = 0;
 EWRAM_DATA u16 gMoveToLearn = 0;
 EWRAM_DATA u8 gBattleMonForms[MAX_BATTLERS_COUNT] = {0};
+EWRAM_DATA u8 gMaxPartyLevel = 1;
 EWRAM_DATA u32 gFieldStatuses = 0;
 EWRAM_DATA struct FieldTimer gFieldTimers = {0};
 EWRAM_DATA u8 gBattlerAbility = 0;
@@ -458,6 +460,13 @@ const u8 * const gStatusConditionStringsTable[7][2] =
 static const u8 sPkblToEscapeFactor[][3] = {{0, 0, 0}, {3, 5, 0}, {2, 3, 0}, {1, 2, 0}, {1, 1, 0}};
 static const u8 sGoNearCounterToCatchFactor[] = {4, 3, 2, 1};
 static const u8 sGoNearCounterToEscapeFactor[] = {4, 4, 4, 4};
+
+static const u16 sBadgeFlags[8] =
+{
+    FLAG_BADGE01_GET, FLAG_BADGE02_GET, FLAG_BADGE03_GET, FLAG_BADGE04_GET,
+    FLAG_BADGE05_GET, FLAG_BADGE06_GET, FLAG_BADGE07_GET, FLAG_BADGE08_GET,
+};
+static const u16 sWhiteOutBadgeMoney[9] = { 8, 16, 24, 36, 48, 60, 80, 100, 120, };
 
 void CB2_InitBattle(void)
 {
@@ -1904,12 +1913,17 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
-
+                SetMonData(&party[i], MON_DATA_ABILITY_NUM, &partyData[i].abilityNums);
                 for (j = 0; j < MAX_MON_MOVES; j++)
                 {
                     SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
                 }
+                for (j = 0; j < NUM_STATS; j++)
+                {
+                    SetMonData(&party[i], MON_DATA_HP_EV + j, &partyData[i].evs[j]);
+                }
+                CalculateMonStats(&party[i]);
                 break;
             }
             }
@@ -3072,6 +3086,18 @@ void FaintClearSetData(void)
 
     gBattleMons[gActiveBattler].status2 = 0;
     gStatuses3[gActiveBattler] = 0;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2) != SPECIES_NONE
+            && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES2) != SPECIES_EGG)
+        {
+            if(GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) > gMaxPartyLevel)
+            {
+                gMaxPartyLevel = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
+            }
+        }
+    }
 
     for (i = 0; i < gBattlersCount; i++)
     {
@@ -4730,6 +4756,16 @@ static void HandleEndTurn_BattleLost(void)
     }
     else
     {
+        s32 i, count;
+
+        for (count = 0, i = 0; i < ARRAY_COUNT(sBadgeFlags); i++)
+        {
+            if (FlagGet(sBadgeFlags[i]) == TRUE)
+            {
+                ++count;
+            }
+        }
+        //RemoveMoney(&gSaveBlock1Ptr->money, sWhiteOutBadgeMoney[count] * gMaxPartyLevel);
         gBattlescriptCurrInstr = BattleScript_LocalBattleLost;
     }
 

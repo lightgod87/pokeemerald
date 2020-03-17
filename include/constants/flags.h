@@ -41,8 +41,8 @@
 #define FLAG_TEMP_1F     (TEMP_FLAGS_START + 0x1F)
 #define TEMP_FLAGS_END   FLAG_TEMP_1F
 
-#define FLAG_UNUSED_0x020    0x20 // Unused Flag
-#define FLAG_UNUSED_0x021    0x21 // Unused Flag
+#define FLAG_RECEIVED_MEGA_STONE    0x20 // Unused Flag
+#define FLAG_RECEIVED_MEWTWO_DEBUG    0x21 // Unused Flag
 #define FLAG_UNUSED_0x022    0x22 // Unused Flag
 #define FLAG_UNUSED_0x023    0x23 // Unused Flag
 #define FLAG_UNUSED_0x024    0x24 // Unused Flag
@@ -337,7 +337,7 @@
 #define FLAG_BEAT_MAGMA_GRUNT_JAGGED_PASS    0x139
 #define FLAG_RECEIVED_AURORA_TICKET          0x13A
 #define FLAG_RECEIVED_MYSTIC_TICKET          0x13B
-#define FLAG_RECEIVED_OLD_SEA_MAP            0x13C 
+#define FLAG_RECEIVED_OLD_SEA_MAP            0x13C
 #define FLAG_UNUSED_MYSTERY_GIFT_0x13D       0x13D
 #define FLAG_UNUSED_MYSTERY_GIFT_0x13E       0x13E
 #define FLAG_UNUSED_MYSTERY_GIFT_0x13F       0x13F
@@ -650,7 +650,7 @@
 #define FLAG_HIDDEN_ITEM_ROUTE_128_HEART_SCALE_2             (FLAG_HIDDEN_ITEMS_START + 0x5D)
 #define FLAG_HIDDEN_ITEM_ROUTE_128_HEART_SCALE_3             (FLAG_HIDDEN_ITEMS_START + 0x5E)
 
-#define FLAG_UNUSED_0x264  0x264 // Unused Flag
+#define FLAG_ENABLE_WILD_DOUBLE_BATTLES  0x264 // Unused Flag
 #define FLAG_UNUSED_0x265  0x265 // Unused Flag
 #define FLAG_UNUSED_0x266  0x266 // Unused Flag
 #define FLAG_UNUSED_0x267  0x267 // Unused Flag
@@ -1137,18 +1137,18 @@
 #define FLAG_ITEM_VICTORY_ROAD_B2F_FULL_HEAL                        0x440
 #define FLAG_ITEM_MT_PYRE_6F_TM_30                                  0x441
 #define FLAG_ITEM_SEAFLOOR_CAVERN_ROOM_9_TM_26                      0x442
-#define FLAG_ITEM_FIERY_PATH_TM06                                   0x443 
-#define FLAG_ITEM_ROUTE_124_RED_SHARD                               0x444 
-#define FLAG_ITEM_ROUTE_124_BLUE_SHARD                              0x445 
-#define FLAG_ITEM_SAFARI_ZONE_NORTH_WEST_TM_22                      0x446 
-#define FLAG_ITEM_ABANDONED_SHIP_ROOMS_1F_HARBOR_MAIL               0x447 
-#define FLAG_ITEM_ABANDONED_SHIP_ROOMS_B1F_ESCAPE_ROPE              0x448 
-#define FLAG_ITEM_ABANDONED_SHIP_ROOMS_2_B1F_DIVE_BALL              0x449 
-#define FLAG_ITEM_ABANDONED_SHIP_ROOMS_B1F_TM_13                    0x44A 
-#define FLAG_ITEM_ABANDONED_SHIP_ROOMS_2_1F_REVIVE                  0x44B 
-#define FLAG_ITEM_ABANDONED_SHIP_CAPTAINS_OFFICE_STORAGE_KEY        0x44C 
-#define FLAG_ITEM_ABANDONED_SHIP_HIDDEN_FLOOR_ROOM_3_WATER_STONE    0x44D 
-#define FLAG_ITEM_ABANDONED_SHIP_HIDDEN_FLOOR_ROOM_1_TM_18          0x44E 
+#define FLAG_ITEM_FIERY_PATH_TM06                                   0x443
+#define FLAG_ITEM_ROUTE_124_RED_SHARD                               0x444
+#define FLAG_ITEM_ROUTE_124_BLUE_SHARD                              0x445
+#define FLAG_ITEM_SAFARI_ZONE_NORTH_WEST_TM_22                      0x446
+#define FLAG_ITEM_ABANDONED_SHIP_ROOMS_1F_HARBOR_MAIL               0x447
+#define FLAG_ITEM_ABANDONED_SHIP_ROOMS_B1F_ESCAPE_ROPE              0x448
+#define FLAG_ITEM_ABANDONED_SHIP_ROOMS_2_B1F_DIVE_BALL              0x449
+#define FLAG_ITEM_ABANDONED_SHIP_ROOMS_B1F_TM_13                    0x44A
+#define FLAG_ITEM_ABANDONED_SHIP_ROOMS_2_1F_REVIVE                  0x44B
+#define FLAG_ITEM_ABANDONED_SHIP_CAPTAINS_OFFICE_STORAGE_KEY        0x44C
+#define FLAG_ITEM_ABANDONED_SHIP_HIDDEN_FLOOR_ROOM_3_WATER_STONE    0x44D
+#define FLAG_ITEM_ABANDONED_SHIP_HIDDEN_FLOOR_ROOM_1_TM_18          0x44E
 #define FLAG_ITEM_ROUTE_121_CARBOS                                  0x44F
 #define FLAG_ITEM_ROUTE_123_ULTRA_BALL                              0x450
 #define FLAG_ITEM_ROUTE_126_GREEN_SHARD                             0x451
